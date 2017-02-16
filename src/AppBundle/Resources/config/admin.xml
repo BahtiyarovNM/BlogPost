@@ -1,0 +1,11 @@
+<!-- src/AppBundle/Resources/config/admin.xml -->
+
+<service id="app.admin.post" class="AppBundle\Admin\PostAdmin">
+    <tag name="sonata.admin" manager_type="orm" group="Content" label="Post" />
+    <argument />
+    <argument>AppBundle\Entity\Post</argument>
+    <argument />
+    <call method="setTranslationDomain">
+        <argument>AppBundle</argument>
+    </call>
+</service>

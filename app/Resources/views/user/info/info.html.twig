@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
+</head>
+<body>
+{% include 'navigation/navigator.html.twig' %}
+<div class="container">
+    <div id="blog" class="row">
+
+        <div class="col-md-12 gap10"></div>
+    </div>
+
+    {% if user %}
+    {% for post in user.blogPost %}
+    {% if post.type.cost=="0" or (app.user and  (app.user.username|check(post.getCustomer.getValues) or app.user.getUsername==post.getUser.getUsername))%}
+    <div id="blog" class="row">
+
+
+        <div class="col-md-10 blogShort">
+            <a href="/post/{{ post.id }}" target="_blank"> <h1>{{ post.title}}</h1></a>
+
+
+
+            <article><p>
+                    {% set foo %}
+                        {% autoescape %}
+                            {{ post.body|decode|raw }}
+                        {% endautoescape %}
+                    {% endset %}
+                    {{ foo }}
+
+                </p></article>
+            <a class="btn btn-blog pull-right marginBottom10" href="/post/{{ post.id }}">READ MORE</a>
+
+            {% else %}
+            <div id="blog" class="row">
+
+
+                <div class="col-md-10 blogShort">
+                    <a href="/post/{{ post.id }}" target="_blank"> <h1>{{ post.title}}</h1></a>
+                    <article><p>
+                            <em>Buy to view the post!</em>
+                        </p></article>
+                    <a class="btn btn-blog pull-right marginBottom10" href="/post/{{ post.id }}">BUY</a>
+                    {% endif %}
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+            {% endfor %}
+            {% else %}
+                <div class="col-md-10 blogShort">
+                    <h1><em>The user does not exist!<br>Are you sure you went right link?</em></h1>
+                </div>
+            {% endif %}
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+</body>
+<style>
+    .blogShort{ border-bottom:1px solid #ddd;}
+    .add{background: #333; padding: 10%; height: 300px;}
+
+    .nav-sidebar {
+        width: 100%;
+        padding: 8px 0;
+        border-right: 1px solid #ddd;
+    }
+    .nav-sidebar a {
+        color: #333;
+        -webkit-transition: all 0.08s linear;
+        -moz-transition: all 0.08s linear;
+        -o-transition: all 0.08s linear;
+        transition: all 0.08s linear;
+    }
+    .nav-sidebar .active a {
+        cursor: default;
+        background-color: #34ca78;
+        color: #fff;
+    }
+    .nav-sidebar .active a:hover {
+        background-color: #37D980;
+    }
+    .nav-sidebar .text-overflow a,
+    .nav-sidebar .text-overflow .media-body {
+        white-space: nowrap;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+    }
+
+
+    h2{color:#34ca78;}
+
+</style>
+
+</html>

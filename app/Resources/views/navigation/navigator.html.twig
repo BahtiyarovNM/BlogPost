@@ -1,0 +1,47 @@
+<div class="container-fluid">
+    <!-- Second navbar for categories -->
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">BlogPost</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+
+
+
+                    {% if app.user %}
+                        <li>
+                            <ul class="nav navbar-nav navbar-right">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }}<span class="glyphicon glyphicon-user pull-right"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/settings">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">User stats <span class="glyphicon glyphicon-stats pull-right"></span></a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="/user/{{ app.user.username }}">My posts <span class="badge pull-right"> {{ app.user.blogPost|length }} </span></a></li>
+                                            <li class="divider"></li>
+
+                                            <li><a href="{{ logout_path('main') }}">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Registration</a></li>
+                    {% endif %}
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+</div>

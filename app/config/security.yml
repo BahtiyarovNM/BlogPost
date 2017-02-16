@@ -1,0 +1,39 @@
+security:
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+
+    # ...
+
+    providers:
+        our_db_provider:
+            entity:
+                class: AppBundle:User
+                property: username
+                # if you're using multiple entity managers
+                # manager_name: customer
+
+    firewalls:
+
+        main:
+
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+            pattern:    ^/
+            http_basic: ~
+            provider: our_db_provider
+            logout:
+                  path:   /logout
+                  invalidate_session: true
+
+
+
+    access_control:
+       
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: /admin, roles: ROLE_ADMIN }
+        - { path: /post, roles: [ROLE_USER,ROLE_ADMIN] }

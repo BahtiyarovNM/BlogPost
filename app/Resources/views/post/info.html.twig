@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
+</head>
+<body>
+{% include 'navigation/navigator.html.twig' %}
+<div class="container">
+    <div id="blog" class="row">
+
+        <div class="col-md-12 gap10"></div>
+    </div>
+
+{% if post %}
+
+    {% if post.type.cost=="0" or (app.user and  app.user.username|check(post.getCustomer.getValues))%}
+    <div id="blog" class="row">
+
+
+        <div class="col-md-10 blogShort">
+            <h1>{{ post.title}}</h1>
+
+
+            <p>Автор: <em><a href="/user/{{ post.user }}">{{ post.user }}</a></em></p>
+            <article><p>
+                    {% set foo %}
+                        {% autoescape %}
+                            {{ post.body|decode|raw }}
+                        {% endautoescape %}
+                    {% endset %}
+                    {{ foo }}
+
+                </p></article>
+
+
+            {% else %}
+            <div id="blog" class="row">
+
+
+                <div class="col-md-10 blogShort">
+                    <a href="/post/{{ post.id }}" target="_blank"> <h1>{{ post.title}}</h1></a>
+                    <article><p>
+                            <em>{{ post.type.name }} to view the post!</em>
+                        </p></article>
+
+                    {#{% if post.type.name=="Follow author" %}#}
+                     {#{{ form_widget(form.follow) }}#}
+                    {#{% elseif post.type.name=="Buy" %}#}
+                    {#{{ form_widget(form.buy) }}#}
+                    {#{% endif %}#}
+                      {{ form_start(form) }}
+                      {{ form_end(form) }}
+                  {{ error }}
+                    {% endif %}
+
+
+
+
+
+
+
+                </div>
+
+                <div class="col-md-12 gap10"></div>
+            </div>
+
+            {% else %}
+            <div class="col-md-10 blogShort">
+                <h1><em>The post does not exist yet!</em></h1>
+            </div>
+            {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

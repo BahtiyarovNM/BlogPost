@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+<button type="submit">Pay</button>
+{{ form_end(form) }}
+{%  for history in history %}
+    <br>
+{{ history.getStringDate }} {{ history.getSumm }}
+{% endfor %}
