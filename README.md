@@ -1,4 +1,4 @@
-Test2
+BlogPost
 =====
 
-A Symfony project created on January 11, 2017, 9:28 am.
+A simple BlogPost with Symfony project.
